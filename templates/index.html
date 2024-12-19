@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 問答系統</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='all.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>RAG 問答系統</h1>
+        <textarea id="question" rows="4" placeholder="請輸入您的問題..."></textarea>
+        <button id="askButton">送出</button>
+        <div id="response">
+            <h3>回答：</h3>
+            <p id="answer">等待問題...</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
