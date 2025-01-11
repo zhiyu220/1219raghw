@@ -1,17 +1,17 @@
 from flask import Flask, render_template, request, jsonify
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_openai import ChatOpenAI
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chat_models import ChatOpenAI
 from langchain.chains.question_answering import load_qa_chain
-from langchain_community.callbacks import get_openai_callback
+from langchain.callbacks import get_openai_callback
 from opencc import OpenCC
 import os
-from openai import OpenAI
 
 app = Flask(__name__)
 
 # 初始化聊天記錄
 chat_history = []
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -38,14 +38,11 @@ def get_response():
 
         # 問答處理
         with get_openai_callback() as cb:
-            response = chain.invoke(
-                {"input_documents": docs, "question": user_input},
-                return_only_outputs=True
-            )
+            response = chain.run(input_documents=docs, question=user_input)
 
         # 繁簡轉換
         cc = OpenCC('s2t')
-        answer = cc.convert(response['output_text'])
+        answer = cc.convert(response)
 
         # 儲存聊天記錄
         chat_history.append({'user': user_input, 'assistant': answer})
