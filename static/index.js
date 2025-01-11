@@ -7,7 +7,8 @@ document.getElementById("askButton").addEventListener("click", () => {
         return;
     }
 
-    answerField.textContent = "正在處理您的問題...";
+    // 顯示轉圈圈
+    spinnerContainer.style.display = "flex";
 
     fetch("/get_response", {
         method: "POST",
@@ -16,13 +17,15 @@ document.getElementById("askButton").addEventListener("click", () => {
     })
     .then((response) => response.json())
     .then((data) => {
-        if (data.answer) {
-            answerField.textContent = data.answer;
+        spinnerContainer.style.display = "none"; // 隱藏轉圈圈
+        if (data.response) { 
+            answerField.textContent = data.response;
         } else {
             answerField.textContent = "錯誤：" + data.error;
         }
     })
     .catch((error) => {
+        spinnerContainer.style.display = "none"; // 隱藏轉圈圈
         answerField.textContent = "請求失敗，請檢查網絡或後端服務。";
         console.error("Error:", error);
     });
