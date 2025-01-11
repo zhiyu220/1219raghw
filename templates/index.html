@@ -13,7 +13,12 @@
         <button id="askButton">送出</button>
         <div id="response">
             <h3>回答：</h3>
-            <p id="answer">等待問題...</p>
+            <!-- 答案顯示的容器 -->
+            <div id="answer">等待您的問題...</div>
+            <!-- 轉圈圈 -->
+            <div id="spinnerContainer" class="spinner-container" style="display: none;">
+                <div class="spinner"></div>
+            </div>
         </div>
     </div>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
