@@ -20,7 +20,8 @@ def index():
 @app.route('/get_response', methods=['POST'])
 def get_response():
     # 取得用戶輸入
-    user_input = request.form.get('user_input')
+    data = request.json  # 解析 JSON 格式數據
+    user_input = data.get('question')  # 獲取 'question' 欄位
     if not user_input:
         return jsonify({'error': 'No user input provided'})
 
