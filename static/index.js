@@ -9,7 +9,7 @@ document.getElementById("askButton").addEventListener("click", () => {
 
     answerField.textContent = "正在處理您的問題...";
 
-    fetch("/ask", {
+    fetch("/get_response", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: question }),
